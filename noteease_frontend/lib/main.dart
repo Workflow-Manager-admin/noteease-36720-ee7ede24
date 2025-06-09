@@ -12,10 +12,14 @@ class AppThemes {
     brightness: Brightness.light,
     scaffoldBackgroundColor: const Color(0xFFF6F3EC), // realistic paper tone
     primaryColor: const Color(0xFF7C5C33), // leather-like brown for headers, appbars
-    accentColor: const Color(0xFF28334A), // deep ink blue/black
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: const Color(0xFF7C5C33),
+      secondary: const Color(0xFF28334A), // deep ink blue/black
+      brightness: Brightness.light,
+    ),
     cardColor: const Color(0xFFFEF7E5), // card/paper note
     canvasColor: const Color(0xFFEBE3CF), // divider/secondary paper
-    shadowColor: Colors.brown.withOpacity(0.23),
+    shadowColor: Colors.brown.withAlpha((0.23 * 255).toInt()),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(fontFamily: 'Georgia', color: Color(0xFF403531)),
       titleLarge: TextStyle(fontWeight: FontWeight.w700, fontFamily: 'Georgia'),
@@ -40,7 +44,7 @@ class AppThemes {
     cardTheme: CardTheme(
       color: const Color(0xFFFEF7E5),
       elevation: 8,
-      shadowColor: Colors.brown.withOpacity(0.28),
+      shadowColor: Colors.brown.withAlpha((0.28 * 255).toInt()),
       margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -59,16 +63,18 @@ class AppThemes {
     ),
     iconTheme: const IconThemeData(color: Color(0xFF453827)),
     dividerColor: const Color(0xFFEAD8BB),
-    dialogBackgroundColor: const Color(0xFFF6F3EC),
+    dialogTheme: const DialogTheme(
+      backgroundColor: Color(0xFFF6F3EC)
+    ),
     tooltipTheme: TooltipThemeData(
       decoration: BoxDecoration(
         color: const Color(0xFF7C5C33),
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
-            color: Colors.brown.withOpacity(0.2),
+            color: Colors.brown.withAlpha((0.2 * 255).toInt()),
             blurRadius: 3,
-            offset: const Offset(2, 2),
+            offset: Offset(2, 2),
           ),
         ],
       ),
@@ -81,10 +87,14 @@ class AppThemes {
     brightness: Brightness.dark,
     scaffoldBackgroundColor: const Color(0xFF28231C), // leather binding
     primaryColor: const Color(0xFF4E3722),
-    accentColor: const Color(0xFFCED2DB),
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: Colors.brown,
+      accentColor: const Color(0xFFCED2DB),
+      brightness: Brightness.dark
+    ),
     cardColor: const Color(0xFF362C20), // deep brown paper
     canvasColor: const Color(0xFF3D3328),
-    shadowColor: Colors.black.withOpacity(0.36),
+    shadowColor: Colors.black.withAlpha((0.36 * 255).toInt()),
     appBarTheme: const AppBarTheme(
       color: Color(0xFF422D18),
       elevation: 5,
@@ -108,7 +118,7 @@ class AppThemes {
     cardTheme: CardTheme(
       color: const Color(0xFF3F362A),
       elevation: 10,
-      shadowColor: Colors.black.withOpacity(0.37),
+      shadowColor: Colors.black.withAlpha((0.37 * 255).toInt()),
       margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -127,16 +137,18 @@ class AppThemes {
     ),
     iconTheme: const IconThemeData(color: Color(0xFFD8C7AC)),
     dividerColor: const Color(0xFF695A45),
-    dialogBackgroundColor: const Color(0xFF3D3328),
+    dialogTheme: const DialogTheme(
+      backgroundColor: Color(0xFF3D3328),
+    ),
     tooltipTheme: TooltipThemeData(
       decoration: BoxDecoration(
         color: const Color(0xFF805A32),
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
-            color: Colors.brown.shade800.withOpacity(0.22),
+            color: Colors.brown.withAlpha((0.22 * 255).toInt()),
             blurRadius: 3,
-            offset: const Offset(2, 2),
+            offset: Offset(2, 2),
           ),
         ],
       ),
@@ -312,7 +324,9 @@ class _NotesHomeScreenState extends State<NotesHomeScreen> {
                     borderRadius: BorderRadius.circular(32),
                     boxShadow: [
                       BoxShadow(
-                        color: isDark ? Colors.black45 : Colors.brown.withOpacity(0.23),
+                        color: isDark
+                            ? Colors.black.withAlpha((0.45 * 255).toInt())
+                            : Colors.brown.withAlpha((0.23 * 255).toInt()),
                         offset: const Offset(2, 5),
                         blurRadius: 6,
                       ),
@@ -358,7 +372,7 @@ class _NotesHomeScreenState extends State<NotesHomeScreen> {
           // Subtle inner shadow for skeuomorphic effect
           boxShadow: [
             BoxShadow(
-                color: Colors.brown.withOpacity(isDark ? 0.32 : 0.16),
+                color: Colors.brown.withAlpha((isDark ? 0.32 : 0.16) * 255 ~/ 1),
                 blurRadius: 36,
                 spreadRadius: 1,
                 offset: const Offset(0, 8))
@@ -446,8 +460,8 @@ class _NotesHomeScreenState extends State<NotesHomeScreen> {
         boxShadow: [
           BoxShadow(
               color: isDark
-                  ? Colors.black.withOpacity(0.5)
-                  : Colors.brown.withOpacity(0.3),
+                  ? Colors.black.withAlpha((0.5 * 255).toInt())
+                  : Colors.brown.withAlpha((0.3 * 255).toInt()),
               blurRadius: 10,
               spreadRadius: 1,
               offset: const Offset(0, 7))
@@ -505,7 +519,7 @@ class _NoteCard extends StatelessWidget {
       color: theme.cardColor,
       elevation: note.isPinned ? 22 : theme.cardTheme.elevation,
       shadowColor: note.isPinned
-          ? Colors.amberAccent.withOpacity(0.24)
+          ? Colors.amberAccent.withAlpha((0.24 * 255).toInt())
           : theme.cardTheme.shadowColor,
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -521,8 +535,8 @@ class _NoteCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         splashColor: isDark
-            ? Colors.brown.withOpacity(0.13)
-            : Colors.amber.withOpacity(0.18),
+            ? Colors.brown.withAlpha((0.13 * 255).toInt())
+            : Colors.amber.withAlpha((0.18 * 255).toInt()),
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 15, 14, 10),
@@ -551,8 +565,8 @@ class _NoteCard extends StatelessWidget {
                           Shadow(
                               blurRadius: 6,
                               color: isDark
-                                  ? Colors.brown.shade900.withOpacity(0.18)
-                                  : Colors.white.withOpacity(0.42),
+                                  ? Colors.brown.shade900.withAlpha((0.18 * 255).toInt())
+                                  : Colors.white.withAlpha((0.42 * 255).toInt()),
                               offset: const Offset(0, 1.6))
                         ],
                         color: isDark
@@ -732,7 +746,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
           ),
           boxShadow: [
             BoxShadow(
-                color: Colors.brown.withOpacity(isDark ? 0.28 : 0.10),
+                color: Colors.brown.withAlpha(((isDark ? 0.28 : 0.10) * 255).toInt()),
                 blurRadius: 32,
                 offset: const Offset(0, 8))
           ],
@@ -797,7 +811,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                       ? Colors.amber.shade200
                       : Colors.amber.shade100,
                   backgroundColor: isDark
-                      ? Colors.brown.shade800.withOpacity(0.64)
+                      ? Colors.brown.shade800.withAlpha((0.64 * 255).toInt())
                       : Colors.brown.shade100,
                   checkmarkColor: isDark
                       ? Colors.brown.shade900
@@ -829,8 +843,8 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
       elevation: 6.5,
       borderRadius: BorderRadius.circular(16),
       shadowColor: isDark
-          ? Colors.brown.shade900.withOpacity(0.2)
-          : Colors.brown.shade400.withOpacity(0.13),
+          ? Colors.brown.shade900.withAlpha((0.2 * 255).toInt())
+          : Colors.brown.shade400.withAlpha((0.13 * 255).toInt()),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
         child: TextField(
